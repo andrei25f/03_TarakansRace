@@ -3,6 +3,7 @@ package ait.tarakansrace.model;
 import java.util.Random;
 
 public class Tarakan implements Runnable {
+    private static Object monitor = new Object();
     public static int winner;
     private Random random = new Random();
 
@@ -24,8 +25,10 @@ public class Tarakan implements Runnable {
                 e.printStackTrace();
             }
         }
-        if (winner == 0) {
-            winner = number;
+        synchronized (monitor) {
+            if (winner == 0) {
+                winner = number;
+            }
         }
     }
 }
